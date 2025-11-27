@@ -1,4 +1,4 @@
-# 🐰 Get Your Bunny Up
+# 🐰 get your bunny up
 
 > A simple terminal utility that displays random ASCII art bunnies
 
