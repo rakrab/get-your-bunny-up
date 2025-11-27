@@ -1,0 +1,58 @@
+#!/bin/bash
+# install.sh - Install script for bunnyup
+
+set -e  # Exit on any error
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Get the absolute path of the current directory (where bunnyup is)
+BUNNYUP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BINARY_PATH="$BUNNYUP_DIR/bunnyup"
+
+# Check if binary exists
+if [ ! -f "$BINARY_PATH" ]; then
+    echo -e "${RED}Error: bunnyup binary not found in $BUNNYUP_DIR${NC}"
+    echo -e "${BLUE}Build it first with: hare build -o bunnyup bunnyup.ha${NC}"
+    exit 1
+fi
+
+# Determine install location
+INSTALL_DIR="${HOME}/.local/bin"
+
+# Create install directory if it doesn't exist
+if [ ! -d "$INSTALL_DIR" ]; then
+    echo -e "${BLUE}Creating $INSTALL_DIR...${NC}"
+    mkdir -p "$INSTALL_DIR"
+fi
+
+# Check if install directory is in PATH
+if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
+    echo -e "${RED}Warning: $INSTALL_DIR is not in your PATH${NC}"
+    echo -e "${BLUE}Add this line to your ~/.bashrc or ~/.zshrc:${NC}"
+    echo -e "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+fi
+
+# Remove old symlink if it exists
+if [ -L "$INSTALL_DIR/bunnyup" ]; then
+    echo -e "${BLUE}Removing old symlink...${NC}"
+    rm "$INSTALL_DIR/bunnyup"
+fi
+
+# Create symlink
+echo -e "${BLUE}Creating symlink from $BINARY_PATH to $INSTALL_DIR/bunnyup...${NC}"
+ln -s "$BINARY_PATH" "$INSTALL_DIR/bunnyup"
+
+# Create bunnies directory if it doesn't exist
+if [ ! -d "$BUNNYUP_DIR/bunnies" ]; then
+    echo -e "${BLUE}Creating bunnies directory...${NC}"
+    mkdir "$BUNNYUP_DIR/bunnies"
+fi
+
+echo -e "${GREEN}✓ Installation complete!${NC}"
+echo -e "${GREEN}bunnyup is symlinked from: $BINARY_PATH${NC}"
+echo -e "${GREEN}Add your ASCII art files to: $BUNNYUP_DIR/bunnies${NC}"
+echo -e "${GREEN}Run 'bunnyup' to see a random bunny!${NC}"
