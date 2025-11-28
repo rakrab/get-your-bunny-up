@@ -15,8 +15,8 @@
 ```sh
 git clone http://gitea.41.io/robert/get-your-bunny-up.git
 cd get-your-bunny-up
-chmod +x install.sh
-./install.sh
+chmod +x get-your-bunny-up
+./get-your-bunny-up
 ```
 - The install script will create a symlink in `~/.local/bin`
 
