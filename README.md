@@ -13,7 +13,8 @@
 #### Installation
 - Clone the repository and run the install script:
 ```sh
-git clone http://gitea.41.io/robert/get-your-bunny-up.git
+git clone https://github.com/rakrab/get-your-bunny-up.git
+# or, if connecting internally, use http://gitea.41.io/robert/get-your-bunny-up.git
 cd get-your-bunny-up
 chmod +x get-your-bunny-up
 ./get-your-bunny-up
@@ -27,7 +28,7 @@ bunnyup
 ```
 - Disable default bunnies (only show files from the `bunnies` folder):
 ```sh
-bunnyup --nodefaults
+bunnyup -nodefaults
 ```
 - Add your own ASCII art by placing text files in the `bunnies` folder in the project directory
 - To build the program from source, run `hare build -o bunnyup bunnyup.ha`
